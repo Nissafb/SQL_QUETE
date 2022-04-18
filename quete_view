@@ -1,0 +1,37 @@
+#Q1
+select lastname, firstname 
+from wizard
+WHERE ID IN (
+select wizard_id from player 
+where  year(enrollement_date) between 1995 and 1998
+ );
+#Q2
+select lastname, firstname 
+from wizard
+WHERE ID IN (
+select wizard_id from player 
+where  year(enrollement_date) between 1995 and 1998
+ and role = 'keeper'
+ );
+#Q3
+select lastname, firstname , role 
+from wizard as w
+join player as p on w.id = p.wizard_id 
+WHERE  year(enrollement_date) between 1995 and 1998
+ and role ='chaser'
+; 
+ #Q4
+ create view count_rol as (
+ select name , role ,count(role)
+from team as t
+join player as p on t.id = p.team_id) ;
+
+
+#Q5
+create view chaser_gryffindor as (
+select name , firstname ,lastname, role 
+from wizard as w
+join player as p on w.id = p.wizard_id 
+join team as t on p.team_id = t.id
+where name = 'gryffindor'
+and role = 'chaser');
